@@ -11,10 +11,12 @@ The commands below record the actual local workflow in chronological order.
    Checked the active branch and working tree at each major stage.
 
 3. git config --local user.name "Dhruv"
-   Set the commit author name for this repository only.
+   Set the initial local commit name. It was corrected throughout the history
+   after the GitHub username was provided.
 
 4. git config --local user.email "dhruv@users.noreply.github.com"
-   Set a no-reply commit email for this repository only.
+   Set the initial local commit email. It was replaced with the account's
+   ID-based GitHub no-reply address before final submission.
 
 5. git add index.html about.html
    Staged both starting HTML files for the initial commit.
@@ -116,3 +118,52 @@ The commands below record the actual local workflow in chronological order.
 
 37. git rev-parse feature
     Read the local feature commit SHA for comparison with GitHub.
+
+Author correction after the GitHub username was provided
+--------------------------------------------------------
+
+38. git log --all --format='%h %an <%ae> | %cn <%ce>'
+    Inspected the original author and committer metadata on every commit.
+
+39. git bundle create '../git-workflow-before-author-correction.bundle' --branches
+    Saved both original branches locally so the rewrite can be recovered.
+
+40. git config --local user.name 'dhruvb2028'
+    Set the requested GitHub username for new commits in this repository.
+
+41. git config --local user.email '177777094+dhruvb2028@users.noreply.github.com'
+    Set the account's ID-based GitHub no-reply address for new commits.
+
+42. git filter-branch -f --env-filter 'export GIT_AUTHOR_NAME="dhruvb2028"; export GIT_AUTHOR_EMAIL="177777094+dhruvb2028@users.noreply.github.com"; export GIT_COMMITTER_NAME="dhruvb2028"; export GIT_COMMITTER_EMAIL="177777094+dhruvb2028@users.noreply.github.com"' -- --branches
+    Rewrote author and committer metadata on main and feature, preserving
+    the file contents, commit order, and merge structure.
+
+43. git log --format='%h %an <%ae> | %cn <%ce>' main
+    Confirmed that all commits on main use the requested identity.
+
+44. git bundle verify '../git-workflow-before-author-correction.bundle'
+    Confirmed the backup bundle contains complete recoverable history.
+
+45. git diff --exit-code 71dd6d6d495876f163000740f4ee45089556c2bf e6dccf1f5c564761ed90fc75b00206fab73cbb47
+    Verified that changing commit metadata did not change project files.
+
+46. git update-ref -d refs/original/refs/heads/main
+    Removed the obsolete local backup ref after verifying the bundle.
+
+47. git update-ref -d refs/original/refs/heads/feature
+    Removed the obsolete feature backup ref after verifying the bundle.
+
+48. git for-each-ref --format='%(refname)' refs/original
+    Verified that no old backup refs remained in the local commit graph.
+
+49. git add git_commands.txt
+    Staged this correction to the command documentation.
+
+50. git commit -m "Document corrected GitHub commit identity"
+    Recorded the explanation under the corrected author identity.
+
+51. git push --force-with-lease=refs/heads/main:71dd6d6d495876f163000740f4ee45089556c2bf origin main
+    Replaced the earlier public main history only if its old tip was unchanged.
+
+52. git push --force-with-lease=refs/heads/feature:23aff95f010bb923f6e4ac0cad3b25fe637422ee origin feature
+    Replaced the earlier public feature history with the corrected author.
