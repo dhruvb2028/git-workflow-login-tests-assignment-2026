@@ -1,0 +1,118 @@
+Git commands used in this assignment
+====================================
+Run these commands from the git-workflow-assignment folder unless noted.
+The commands below record the actual local workflow in chronological order.
+
+1. git init -b main
+   Initialized the local repository with main as its initial branch, before
+   creating a repository on GitHub.
+
+2. git status --short --branch
+   Checked the active branch and working tree at each major stage.
+
+3. git config --local user.name "Dhruv"
+   Set the commit author name for this repository only.
+
+4. git config --local user.email "dhruv@users.noreply.github.com"
+   Set a no-reply commit email for this repository only.
+
+5. git add index.html about.html
+   Staged both starting HTML files for the initial commit.
+
+6. git commit -m "Initial project with home and about pages"
+   Recorded the initial state of the project.
+
+7. git add index.html
+   Staged the new link added to the home page.
+
+8. git commit -m "Link home page to about page"
+   Recorded the second project version on main.
+
+9. git branch feature
+   Created the feature branch from the second commit.
+
+10. git switch feature
+    Moved the working tree to the feature branch.
+
+11. git add about.html
+    Staged the about page changes made on feature.
+
+12. git commit -m "Expand about page on feature branch"
+    Recorded the feature work on its own branch.
+
+13. git switch main
+    Returned to main before merging the feature work.
+
+14. git merge --no-ff feature -m "Merge feature branch into main"
+    Merged feature into main and preserved a visible merge commit.
+
+15. git log --oneline --graph --decorate --all
+    Displayed all commits and the feature branch in a compact graph.
+
+16. git check-ignore -v debug.log temp/session.txt
+    Verified that *.log and temp/ rules ignore the sample files.
+
+17. git add .gitignore
+    Staged the ignore rules for a commit.
+
+18. git commit -m "Ignore log files and temp directory"
+    Recorded the .gitignore configuration.
+
+19. git status --short --ignored
+    Confirmed that debug.log and temp/ are ignored and untracked.
+
+20. git add index.html
+    Staged a temporary note for the undo demonstration.
+
+21. git commit -m "Add temporary note for undo demonstration"
+    Created an additional commit to undo.
+
+22. git revert --no-edit HEAD
+    Undid the temporary note with a new commit while preserving history.
+
+23. git show --stat --oneline HEAD
+    Showed that the revert deleted the temporary note from index.html.
+
+24. git diff HEAD~2 HEAD -- index.html
+    Compared index.html before the temporary commit and after its revert;
+    no output confirms the file returned to its earlier content.
+
+25. gh repo create dhruvb2028/git-workflow-login-tests-assignment-2026 --public --description "Git workflow and login test case assignment"
+    Created an empty public GitHub repository after the local history existed.
+    This is a GitHub CLI command, included to document the full workflow.
+
+26. git remote add origin https://github.com/dhruvb2028/git-workflow-login-tests-assignment-2026.git
+    Connected the existing local repository to the new GitHub repository.
+
+27. git remote -v
+    Confirmed the fetch and push URLs for origin.
+
+28. git add git_commands.txt
+    Staged this command documentation file for inclusion in the repository.
+
+29. git commit -m "Document Git workflow commands"
+    Recorded the command file on main before pushing.
+
+30. git push -u origin main
+    Pushed main and set origin/main as its upstream tracking branch.
+
+31. git push origin feature
+    Pushed the feature branch so its separate commit is visible on GitHub.
+
+32. git ls-remote --heads origin main feature
+    Verified that GitHub has both branches and recorded their commit SHAs.
+
+33. git status --short --branch
+    Confirmed that main tracks origin/main and the working tree is clean.
+
+34. git status --porcelain
+    Checked for any remaining tracked or untracked changes before PDF export.
+
+35. git ls-files
+    Confirmed that git_commands.txt and the project files are tracked.
+
+36. git rev-parse main
+    Read the local main commit SHA for comparison with GitHub.
+
+37. git rev-parse feature
+    Read the local feature commit SHA for comparison with GitHub.
